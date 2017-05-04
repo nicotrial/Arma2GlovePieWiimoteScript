@@ -1,0 +1,65 @@
+﻿/* Mouse Directinput FPS 
+- Mouse DirectInputPos = Wiimote PointerXY */
+Wiimote2.HasBalanceBoard  = true
+Wiimote.BalanceBoard.LED = true
+var.lim1 = -0.6
+var.lim2 = 0.6
+var.wiix = wiimote.PointerX
+var.wiiy = wiimote.PointerY
+
+
+
+mouse.LeftButton=wiimote.B
+mouse.RightButton=wiimote.A
+keyboard.X=wiimote.One
+keyboard.C=wiimote.Two
+keyboard.Enter=wiimote.SwingLeft
+if(wiimote2.HasBalanceBoard){
+keyboard.W = Wiimote2.BalanceBoard.JoyY < -0.4
+keyboard.A = Wiimote2.BalanceBoard.JoyX < -0.3
+keyboard.S = Wiimote2.BalanceBoard.JoyY > 0.4
+keyboard.D = Wiimote2.BalanceBoard.JoyX > 0.3
+DebugPrint(Wiimote2.BalanceBoard.JoyX)
+}
+if wiimote.dot1vis or wiimote.dot2vis {
+if(var.wiix < 0){
+var.wiix = 0
+}
+if(var.wiix > 1){
+var.wiix = 1
+}
+if(var.wiiy < 0){
+var.wiiy = 0
+}
+if(var.wiiy > 1){
+var.wiiy = 1
+}
+
+var.wiix = var.wiix*2 - 1
+var.wiiy = var.wiiy*2 - 1
+
+if(var.wiix <var.lim1){
+Fakemouse.DirectInputX = Fakemouse.DirectInputX +  (var.wiix -var.lim1)*30
+var.lastxpos = Fakemouse.DirectInputX
+}
+if( var.wiix > var.lim2){
+Fakemouse.DirectInputX = Fakemouse.DirectInputX + (var.wiix -var.lim2)*30
+ var.lastxpos = Fakemouse.DirectInputX
+}
+if(var.wiiy <var.lim1){
+Fakemouse.DirectInputY = Fakemouse.DirectInputY +  (var.wiiy -var.lim1)*30
+var.lastypos = Fakemouse.DirectInputY
+}
+if( var.wiiy > var.lim2){
+Fakemouse.DirectInputY = Fakemouse.DirectInputY + (var.wiiy -var.lim2)*30
+ var.lastypos = Fakemouse.DirectInputY
+}
+if( var.wiix >= var.lim1 and var.wiix <= var.lim2){
+ mouse.DirectInputX = (var.wiix)*300 + var.lastxpos
+}
+if( var.wiiy >= var.lim1 and var.wiiy <= var.lim2){
+ mouse.DirectInputY = (var.wiiy)*300 + var.lastypos
+}
+
+}
+

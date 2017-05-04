@@ -1,0 +1,4 @@
+﻿/* Mouse Directinput FPS 
+- Mouse DirectInputPos = Wiimote PointerXY */
+if
+mouse.DirectInputPos += [(wiimote.PointerX-1/2)*80, (wiimote.PointerY-1/2)*50] // X = *80 / Y = *50 (change - or + 10%) 
